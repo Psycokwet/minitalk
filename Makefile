@@ -15,13 +15,20 @@ COMMON_PATH		= common/
 
 CFLAGS		+=	-W -Wall -Wextra -D BUFFER_SIZE=32 -g3 #-Werror  -pedantic 		## '+=' allow to keep default flags.
 
+SERVER_FILES				=	
+CLIENT_FILES				=	send.c
 ifdef WITH_BONUS
 	CFLAGS	+= -DBONUS -DIF_BONUS=true
 
+	SERVER_FILES				+=	main_bonus.c
+	CLIENT_FILES				+=	main_bonus.c
 	OBJ_PATH	= $(OBJ_BONUS_PATH)
-	NAME	=	$(NAME_BONUS)
+	NAME_CLI	=	$(BONUS_CLI)
+	NAME_SERV	=	$(BONUS_SERV)
 else
 	CFLAGS	+= -DIF_BONUS=false
+	SERVER_FILES				+=	main.c
+	CLIENT_FILES				+=	main.c
 endif
 
 
@@ -31,9 +38,6 @@ OBJ_PATHS_INIT			=	$(addprefix $(OBJ_PATH),$(SERVER_PATH) 	\
 OBJ_PATHS_INIT			+= 	$(OBJ_PATH)
 ## No need for a \ on the last line
 HEADERS_FILES				=	main.h
-SERVER_FILES				=	main.c
-CLIENT_FILES				=	main.c \
-								send.c
 COMMON_FILES				=	ft_atoi.c \
 								ft_isdigit.c \
 								ft_itoa.c \
