@@ -13,6 +13,8 @@
 #ifndef MAIN_H
 # define MAIN_H
 
+# define BYTE_SIZE 8
+
 # include <stddef.h>
 # include <stdbool.h>
 
