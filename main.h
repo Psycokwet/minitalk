@@ -14,6 +14,7 @@
 # define MAIN_H
 
 # include <stddef.h>
+# include <stdbool.h>
 
 # include <signal.h>
 // typedef void (*sighandler_t)(int);
@@ -39,9 +40,17 @@
 // int usleep(useconds_t usec);
 
 
+int		ft_atoi(const char *str);
+int		ft_isdigit(int c);
+char	*ft_itoa(int n);
+
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 size_t	ft_strlen(const char *s);
 void	ft_putchar_fd(char c, int fd);
+
+int		ft_strncmp(const char *s1, const char *s2, size_t len_mx);
+int		parse_value(char const *arg, int *result);
+
 
 #endif
