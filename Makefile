@@ -32,7 +32,8 @@ OBJ_PATHS_INIT			+= 	$(OBJ_PATH)
 ## No need for a \ on the last line
 HEADERS_FILES				=	main.h
 SERVER_FILES				=	main.c
-CLIENT_FILES				=	main.c
+CLIENT_FILES				=	main.c \
+								send.c
 COMMON_FILES				=	ft_atoi.c \
 								ft_isdigit.c \
 								ft_itoa.c \

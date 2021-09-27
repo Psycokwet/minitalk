@@ -54,5 +54,9 @@ void	ft_putchar_fd(char c, int fd);
 int		ft_strncmp(const char *s1, const char *s2, size_t len_mx);
 int		parse_value(char const *arg, int *result);
 
+int	send_zero(int server_pid);
+int	send_one(int server_pid);
+int	send_null(int server_pid);
+int	send_letter(int server_pid, char letter);
 
 #endif
