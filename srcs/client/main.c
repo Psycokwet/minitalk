@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 18:54:29 by scarboni          #+#    #+#             */
-/*   Updated: 2021/09/27 16:37:21 by scarboni         ###   ########.fr       */
+/*   Updated: 2021/09/27 18:09:17 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,42 +29,54 @@ int	send_null(int server_pid)
 	i = 0;
 	while (i < BYTE_SIZE)
 	{
-		send_zero(server_pid);
+		if (send_zero(server_pid) != EXIT_SUCCESS)
+			return (-EXIT_FAILURE);
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }
 int	send_letter(int server_pid, char letter)
 {
 	int	i;
+	int	ret;
 
 	i = 0;
 	while (i < BYTE_SIZE)
 	{
 		if ((letter >> i) & 1)
-			send_one(server_pid);
+			ret = send_one(server_pid);
 		else
-			send_zero(server_pid);
+			ret = send_zero(server_pid);
+		if (ret != EXIT_SUCCESS)
+			return (ret);
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }
 
 void	start_client(int server_pid, char const *msg)
 {
 	size_t	length_msg;
-	int		i;
+	size_t	i;
 
 	length_msg = ft_strlen(msg);
 	i = 0;
-	ft_putnbr_fd(server_pid, STDIN_FILENO);
-	ft_putstr_fd("Hello, i'm the client :", STDIN_FILENO);
-	ft_putnbr_fd(getpid(), STDIN_FILENO);
-	ft_putstr_fd("!\n", STDIN_FILENO);
+	ft_putstr_fd("Hello, i'm the client\n", STDIN_FILENO);
 	while (i < length_msg)
 	{
-		send_letter(server_pid, msg[i]);
+		if (send_letter(server_pid, msg[i]) != EXIT_SUCCESS)
+		{
+			ft_putstr_fd("ERROR !\n", STDIN_FILENO);
+			exit(-EXIT_FAILURE);
+		}
 		i++;
 	}
-	send_null(server_pid);
+	if (send_null(server_pid) != EXIT_SUCCESS)
+	{
+		ft_putstr_fd("ERROR !\n", STDIN_FILENO);
+		exit(-EXIT_FAILURE);
+	}
+	ft_putstr_fd("Message sent with success !\n", STDIN_FILENO);
 }
 
 int	main(int argc, char const *argv[])

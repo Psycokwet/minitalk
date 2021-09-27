@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 18:54:29 by scarboni          #+#    #+#             */
-/*   Updated: 2021/09/27 17:51:35 by scarboni         ###   ########.fr       */
+/*   Updated: 2021/09/27 18:19:25 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,19 @@ void	sig_handler(int signum)
 	static unsigned char letter;
 	static unsigned char prev_letter;
 
+	if (signum != SIGUSR1 && signum != SIGUSR2)
+		return ;
 	if (signum == SIGUSR1)
 		letter = letter | 1 << bits ;
 	bits ++;
 	if (bits >= BYTE_SIZE * sizeof (char))
 	{
-		if (letter == '!' && prev_letter == 'q')
-			exit(EXIT_SUCCESS);
 		if (letter == 0)
 			ft_putstr_fd("\n", STDIN_FILENO);
 		else
 			ft_putchar_fd(letter, STDIN_FILENO);
+		if (letter == '!' && prev_letter == 'q')
+			exit(EXIT_SUCCESS);
 		prev_letter = letter;
 		letter = 0;
 		bits = 0;
