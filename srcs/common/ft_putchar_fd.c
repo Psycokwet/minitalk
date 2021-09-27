@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/22 18:54:29 by scarboni          #+#    #+#             */
-/*   Updated: 2021/09/27 15:00:55 by scarboni         ###   ########.fr       */
+/*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
+/*   Updated: 2021/09/27 14:59:02 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../main.h"
+#include <unistd.h>
 
-int	main(int argc, char const *argv[])
+void	ft_putchar_fd(char c, int fd)
 {
-	(void)argc;
-	(void)argv;
-	ft_putstr_fd("Hello, i'm the server :", STDIN_FILENO);
-	ft_putnbr_fd(getpid(), STDIN_FILENO);
-	ft_putstr_fd("!\n", STDIN_FILENO);
-	return (0);
+	write(fd, &c, 1);
 }
+/*
+** #1. Le caractere a ecrire.
+** #2. Le file descriptor sur lequel ecrire.
+** Valeur de retour None
+** Fonctions externes autorisees
+** write
+** Description : ecrit le caractere 'c' sur le file descriptor
+** donne.
+*/

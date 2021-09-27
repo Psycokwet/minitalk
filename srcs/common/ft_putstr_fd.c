@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/22 18:54:29 by scarboni          #+#    #+#             */
-/*   Updated: 2021/09/27 15:00:55 by scarboni         ###   ########.fr       */
+/*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
+/*   Updated: 2021/09/27 14:53:16 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../main.h"
+#include <unistd.h>
 
-int	main(int argc, char const *argv[])
+void	ft_putstr_fd(char *s, int fd)
 {
-	(void)argc;
-	(void)argv;
-	ft_putstr_fd("Hello, i'm the server :", STDIN_FILENO);
-	ft_putnbr_fd(getpid(), STDIN_FILENO);
-	ft_putstr_fd("!\n", STDIN_FILENO);
-	return (0);
+	if (!s)
+		return ;
+	write(fd, s, ft_strlen(s));
 }
+/*
+** #1. La chaine de caracteres a ecrire.
+** #2. Le file descriptor sur lequel ecrire.
+** Valeur de retour None
+** Fonctions externes autorisees
+** write
+** Description Ecrit la chaine de caracteres 's' sur le file
+** descriptor donne.
+*/

@@ -33,7 +33,10 @@ OBJ_PATHS_INIT			+= 	$(OBJ_PATH)
 HEADERS_FILES				=	main.h
 SERVER_FILES				=	main.c
 CLIENT_FILES				=	main.c
-COMMON_FILES				=	
+COMMON_FILES				=	ft_putchar_fd.c \
+								ft_putnbr_fd.c \
+								ft_putstr_fd.c \
+								ft_strlen.c
 
 SRC_FILES_CLI += $(addprefix $(CLIENT_PATH), $(CLIENT_FILES))
 SRC_FILES_CLI += $(addprefix $(COMMON_PATH), $(COMMON_FILES))
