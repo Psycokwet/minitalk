@@ -6,18 +6,26 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 18:54:29 by scarboni          #+#    #+#             */
-/*   Updated: 2021/09/27 22:54:28 by scarboni         ###   ########.fr       */
+/*   Updated: 2021/09/28 11:04:43 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../main.h"
 
-void	sig_handler(int signum)
+void	sig_sigaction(int signum, siginfo_t *info, void* context)
 {
 	static unsigned long	bits;
 	static unsigned char	letter;
 	static unsigned char	prev_letter;
+	static int				prev_pid;
 
+	(void)context;
+	if (prev_pid != 0 && prev_pid != info->si_pid){
+		prev_letter = 0;
+		letter = 0;
+		bits = 0;
+	}
+	prev_pid = info->si_pid;
 	if (signum != SIGUSR1 && signum != SIGUSR2)
 		return ;
 	if (signum == SIGUSR1)
@@ -44,7 +52,8 @@ int	main(int argc, char const *argv[])
 	(void)argc;
 	(void)argv;
 	act = (struct sigaction){};
-	act.sa_handler = sig_handler;
+	act.sa_sigaction = sig_sigaction;
+	act.sa_flags = SA_SIGINFO;
 	ft_putstr_fd("Hello, i'm the server : ", STDIN_FILENO);
 	ft_putnbr_fd(getpid(), STDIN_FILENO);
 	ft_putstr_fd(" !\n", STDIN_FILENO);

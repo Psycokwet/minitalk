@@ -16,7 +16,7 @@ COMMON_PATH		= common/
 CFLAGS		+=	-W -Wall -Wextra -D BUFFER_SIZE=32 -g3 #-Werror  -pedantic 		## '+=' allow to keep default flags.
 
 SERVER_FILES				=	
-CLIENT_FILES				=	send.c
+CLIENT_FILES				=	
 ifdef WITH_BONUS
 	CFLAGS	+= -DBONUS -DIF_BONUS=true
 
@@ -46,7 +46,8 @@ COMMON_FILES				=	ft_atoi.c \
 								ft_putstr_fd.c \
 								ft_strlen.c \
 								ft_strncmp.c \
-								parse_value.c
+								parse_value.c \
+								send.c
 
 SRC_FILES_CLI += $(addprefix $(CLIENT_PATH), $(CLIENT_FILES))
 SRC_FILES_CLI += $(addprefix $(COMMON_PATH), $(COMMON_FILES))
